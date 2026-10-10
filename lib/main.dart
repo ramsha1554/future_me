@@ -152,6 +152,92 @@ class FutureMeApp extends StatelessWidget {
           thickness: 1,
           space: 1,
         ),
+        chipTheme: ChipThemeData(
+          backgroundColor: AppColors.softCream,
+          selectedColor: AppColors.warmBeige,
+          secondarySelectedColor: AppColors.warmBeige,
+          checkmarkColor: AppColors.deepBurgundy,
+          labelStyle: GoogleFonts.dmSans(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.editorialInk,
+          ),
+          secondaryLabelStyle: GoogleFonts.dmSans(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.editorialInk,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2),
+          ),
+          side: const BorderSide(color: AppColors.hairlineBorder, width: 1),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: AppColors.softCream,
+          contentPadding: const EdgeInsets.all(16),
+          hintStyle: GoogleFonts.dmSans(
+            color: AppColors.editorialMuted,
+            fontSize: 17,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: const BorderSide(color: AppColors.hairlineBorder),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: const BorderSide(color: AppColors.hairlineBorder),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: const BorderSide(color: AppColors.deepBurgundy),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: const BorderSide(color: AppColors.softCoral),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: const BorderSide(color: AppColors.softCoral),
+          ),
+        ),
+        dialogTheme: DialogThemeData(
+          backgroundColor: AppColors.softCream,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2),
+            side: const BorderSide(color: AppColors.hairlineBorder),
+          ),
+          titleTextStyle: GoogleFonts.ebGaramond(
+            color: AppColors.editorialInk,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+          contentTextStyle: GoogleFonts.dmSans(
+            color: AppColors.editorialMuted,
+            fontSize: 17,
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: AppColors.deepBurgundy,
+            textStyle:
+                GoogleFonts.dmSans(fontSize: 15, fontWeight: FontWeight.w600),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+        ),
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: AppColors.editorialInk,
+          contentTextStyle: GoogleFonts.dmSans(
+            color: AppColors.softCream,
+            fontSize: 14,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2),
+          ),
+          behavior: SnackBarBehavior.floating,
+        ),
       ),
       home: HomeScreen(repository: repository),
     );

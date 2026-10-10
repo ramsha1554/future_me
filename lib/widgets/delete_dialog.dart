@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../main.dart';
-
 Future<bool> showDeleteConfirmDialog(BuildContext context) async {
   final textTheme = Theme.of(context).textTheme;
   final confirmed = await showDialog<bool>(
@@ -21,9 +19,6 @@ Future<bool> showDeleteConfirmDialog(BuildContext context) async {
           child: const Text('Cancel'),
         ),
         ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.softCoral,
-          ),
           onPressed: () => Navigator.of(dialogContext).pop(true),
           child: const Text('Delete'),
         ),

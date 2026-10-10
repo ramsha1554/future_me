@@ -121,9 +121,6 @@ class _ComposeScreenState extends State<ComposeScreen> {
             child: const Text('Keep writing'),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.softCoral,
-            ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
             child: const Text('Discard'),
           ),
@@ -207,11 +204,23 @@ class _ComposeScreenState extends State<ComposeScreen> {
             const SizedBox(height: 12),
             Wrap(
               spacing: 8,
+              runSpacing: 8,
               children: [
                 for (var i = 0; i < quickPicks.length; i++)
                   ChoiceChip(
                     label: Text(quickPicks[i].keys.single),
                     selected: _selectedChipIndex == i,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    backgroundColor: AppColors.softCream,
+                    selectedColor: AppColors.warmBeige,
+                    side: BorderSide(
+                      color: _selectedChipIndex == i
+                          ? AppColors.deepBurgundy
+                          : AppColors.hairlineBorder,
+                      width: 1,
+                    ),
                     onSelected: (_) => _applyQuickPick(
                       i,
                       quickPicks[i].values.single,
