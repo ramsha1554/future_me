@@ -126,6 +126,7 @@ class NotificationService {
         scheduledDate: scheduledDate,
         notificationDetails: details,
         androidScheduleMode: scheduleMode,
+        payload: message.id,
       );
     } catch (e) {
       debugPrint('NotificationService: schedule failed ($e)');
@@ -138,6 +139,7 @@ class NotificationService {
             scheduledDate: scheduledDate,
             notificationDetails: details,
             androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+            payload: message.id,
           );
         } catch (e) {
           debugPrint('NotificationService: inexact schedule failed ($e)');

@@ -18,7 +18,7 @@ class ComposeScreen extends StatefulWidget {
 class _ComposeScreenState extends State<ComposeScreen> {
   final TextEditingController _messageController = TextEditingController();
   DateTime _unlockAt = DateTime.now().add(const Duration(days: 7));
-  int? _selectedChipIndex;
+  int? _selectedChipIndex = 1;
   String? _messageError;
   String? _dateError;
   bool _saved = false;
@@ -137,10 +137,9 @@ class _ComposeScreenState extends State<ComposeScreen> {
     final textTheme = Theme.of(context).textTheme;
     final errorColor = Theme.of(context).colorScheme.error;
     const quickPicks = <Map<String, Duration>>[
-      {'1 week': Duration(days: 7)},
-      {'1 month': Duration(days: 30)},
-      {'6 months': Duration(days: 182)},
-      {'1 year': Duration(days: 365)},
+      {'Tomorrow': Duration(days: 1)},
+      {'7 days': Duration(days: 7)},
+      {'30 days': Duration(days: 30)},
     ];
 
     return PopScope(
