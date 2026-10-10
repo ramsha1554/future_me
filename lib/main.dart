@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'repository/message_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'screens/home.dart';
-import 'models/future_message.dart';
-import 'repository/message_repository.dart';
+
+
 
 // Color palette as defined in UIUX_SPEC.md
 class AppColors {
@@ -32,35 +33,82 @@ class FutureMeApp extends StatelessWidget {
       title: 'Future Me',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         scaffoldBackgroundColor: AppColors.softCream,
         primaryColor: AppColors.deepBurgundy,
+        colorScheme: const ColorScheme.light(
+          primary: AppColors.deepBurgundy,
+          surface: AppColors.softCream,
+          onSurface: AppColors.editorialInk,
+        ),
         textTheme: TextTheme(
-          headlineLarge: GoogleFonts.ebGaramond(
+          displayLarge: GoogleFonts.ebGaramond(
             color: AppColors.editorialInk,
             fontSize: 40,
             fontWeight: FontWeight.w400,
+            height: 48 / 40,
+          ),
+          headlineLarge: GoogleFonts.ebGaramond(
+            color: AppColors.editorialInk,
+            fontSize: 32,
+            fontWeight: FontWeight.w400,
+            height: 40 / 32,
           ),
           headlineMedium: GoogleFonts.ebGaramond(
             color: AppColors.editorialInk,
             fontSize: 28,
             fontWeight: FontWeight.w400,
+            height: 36 / 28,
           ),
-          bodyLarge: GoogleFonts.dmSans(
-            color: AppColors.editorialMuted,
+          headlineSmall: GoogleFonts.ebGaramond(
+            color: AppColors.editorialInk,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            height: 32 / 24,
+          ),
+          bodyLarge: GoogleFonts.ebGaramond(
+            color: AppColors.editorialInk,
             fontSize: 19,
             fontWeight: FontWeight.w400,
+            height: 30 / 19,
           ),
           bodyMedium: GoogleFonts.dmSans(
             color: AppColors.editorialMuted,
             fontSize: 17,
             fontWeight: FontWeight.w400,
+            height: 26 / 17,
+          ),
+          bodySmall: GoogleFonts.dmSans(
+            color: AppColors.editorialMuted,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            height: 20 / 14,
+          ),
+          labelLarge: GoogleFonts.dmSans(
+            color: AppColors.softCream,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            height: 20 / 15,
+          ),
+          labelMedium: GoogleFonts.dmSans(
+            color: AppColors.editorialMuted,
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            height: 18 / 13,
+          ),
+          labelSmall: GoogleFonts.dmSans(
+            color: AppColors.editorialMuted,
+            fontSize: 11,
+            fontWeight: FontWeight.w500,
+            height: 14 / 11,
+            letterSpacing: 1.2,
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: AppColors.deepBurgundy,
-            onPrimary: AppColors.softCream,
-            textStyle: GoogleFonts.dmSans(fontWeight: FontWeight.w600),
+            backgroundColor: AppColors.deepBurgundy,
+            foregroundColor: AppColors.softCream,
+            textStyle: GoogleFonts.dmSans(fontSize: 15, fontWeight: FontWeight.w600),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(2),
             ),
@@ -70,20 +118,31 @@ class FutureMeApp extends StatelessWidget {
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
-            primary: AppColors.deepBurgundy,
-            side: const BorderSide(color: AppColors.deepBurgundy),
+            foregroundColor: AppColors.deepBurgundy,
+            side: const BorderSide(color: AppColors.deepBurgundy, width: 1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(2),
             ),
-            textStyle: GoogleFonts.dmSans(fontWeight: FontWeight.w600),
+            textStyle: GoogleFonts.dmSans(fontSize: 15, fontWeight: FontWeight.w600),
             minimumSize: const Size.fromHeight(48),
           ),
         ),
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: AppColors.softCream,
           elevation: 0,
-          iconTheme: IconThemeData(color: AppColors.editorialInk),
-          titleTextStyle: TextStyle(color: AppColors.editorialInk, fontSize: 20),
+          scrolledUnderElevation: 0,
+          centerTitle: false,
+          iconTheme: const IconThemeData(color: AppColors.editorialInk),
+          titleTextStyle: GoogleFonts.ebGaramond(
+            color: AppColors.editorialInk,
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        dividerTheme: const DividerThemeData(
+          color: AppColors.hairlineBorder,
+          thickness: 1,
+          space: 1,
         ),
       ),
       home: HomeScreen(repository: repository),
