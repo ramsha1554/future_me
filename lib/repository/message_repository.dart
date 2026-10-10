@@ -15,15 +15,18 @@ class MessageRepository extends ChangeNotifier {
   Future<void> init() async {
     _prefs ??= await SharedPreferences.getInstance();
     final storedMessages = _prefs!.getStringList(storageKey) ?? <String>[];
-    _messages
-      ..clear()
-      ..addAll(
-        storedMessages.map(
-          (storedMessage) => FutureMessage.fromJson(
+    _messages.clear();
+    for (final storedMessage in storedMessages) {
+      try {
+        _messages.add(
+          FutureMessage.fromJson(
             jsonDecode(storedMessage) as Map<String, dynamic>,
           ),
-        ),
-      );
+        );
+      } catch (e) {
+        debugPrint('MessageRepository: skipping corrupted entry ($e)');
+      }
+    }
     notifyListeners();
   }
 
