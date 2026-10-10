@@ -26,4 +26,6 @@ class FutureMessage {
         'createdAt': createdAt.toIso8601String(),
         'unlockAt': unlockAt.toIso8601String(),
       };
+
+  bool get isUnlocked => !DateTime.now().isBefore(unlockAt);
 }
