@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'repository/message_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'screens/home.dart';
+import 'services/notification_service.dart';
 
 
 
@@ -18,8 +19,15 @@ class AppColors {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.instance.init();
+  await NotificationService.instance.requestPermission();
   final repository = MessageRepository();
   await repository.init();
+  for (final message in repository.messages) {
+    if (!message.isUnlocked) {
+      await NotificationService.instance.scheduleUnlock(message);
+    }
+  }
   runApp(FutureMeApp(repository: repository));
 }
 
