@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +27,10 @@ void main() {
 
   setUp(() {
     GoogleFonts.config.allowRuntimeFetching = false;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform, (call) async {
+      return null;
+    });
   });
 
   group('FutureMessage', () {
@@ -195,6 +200,37 @@ void main() {
       expect(find.text('LOCKED'), findsOneWidget);
       expect(find.text('Locked'), findsOneWidget);
       expect(find.text(secret), findsNothing);
+    });
+
+    testWidgets('long-press deletes a message after confirmation',
+        (tester) async {
+      SharedPreferences.setMockInitialValues(<String, Object>{});
+      final repository = MessageRepository();
+      await repository.init();
+      await repository.add(
+        _buildMessage(
+          id: 'doomed-1',
+          content: 'Delete me',
+          unlockAt: DateTime.now().add(const Duration(days: 5)),
+        ),
+      );
+
+      await tester.pumpWidget(FutureMeApp(repository: repository));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      await tester.longPress(find.text('Locked'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.text('Delete this message?'), findsOneWidget);
+
+      await tester.tap(find.text('Delete'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.text('Message deleted'), findsOneWidget);
+      expect(find.text('Nothing here yet'), findsOneWidget);
+      expect(repository.messages, isEmpty);
     });
   });
 }

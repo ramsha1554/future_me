@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -15,6 +16,7 @@ class NotificationService {
   static const String channelName = 'Message unlocks';
   static const String channelDescription =
       'Notifications when a sealed message unlocks.';
+  static const String _exactAlarmAskedKey = 'exact_alarm_requested';
 
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
@@ -73,10 +75,15 @@ class NotificationService {
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
     try {
-      await _plugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.requestExactAlarmsPermission();
+      final prefs = await SharedPreferences.getInstance();
+      final askedExact = prefs.getBool(_exactAlarmAskedKey) ?? false;
+      if (!askedExact) {
+        await _plugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.requestExactAlarmsPermission();
+        await prefs.setBool(_exactAlarmAskedKey, true);
+      }
     } catch (e) {
       debugPrint('NotificationService: exact alarm request failed ($e)');
     }

@@ -6,7 +6,7 @@ import 'services/notification_service.dart';
 
 
 
-// Color palette as defined in UIUX_SPEC.md
+// App color palette.
 class AppColors {
   static const Color softCream = Color(0xFFFFF9F2);
   static const Color warmBeige = Color(0xFFF3E6D5);
@@ -33,7 +33,7 @@ void main() async {
 
 class FutureMeApp extends StatelessWidget {
   final MessageRepository repository;
-  const FutureMeApp({Key? key, required this.repository}) : super(key: key);
+  const FutureMeApp({super.key, required this.repository});
 
   @override
   Widget build(BuildContext context) {
